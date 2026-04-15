@@ -17,19 +17,26 @@ grid on
 % ── Panel 2: cuantización de la carga ───────────────────────────────────
 subplot(1,3,2)
 scatter(1:length(q_est), q_est/p.e_exact, 50, n_asignado, 'filled')
+
+% Add this line to change the color scheme:
+colormap(jet) % or colormap(turbo) for a smoother look
+
 yline(1:8, '--', 'Color', [0.7 0.7 0.7])
-colorbar;  clim([1 8])
-xlabel('Número de gota');  ylabel('$\hat{q}_i / e_{aceptado}$', 'Interpreter', 'latex', 'FontSize', 14)
+colorbar;  
+clim([1 8]) % This ensures 1 is blue and 8 is red
+xlabel('Número de gota');  
+ylabel('$\hat{q}_i / e_{aceptado}$', 'Interpreter', 'latex', 'FontSize', 14)
 title('Cuantización de la carga')
 grid on
 
 % ── Panel 3: regresión lineal ────────────────────────────────────────────
 subplot(1,3,3)
 n_rng = linspace(0, max(n_asignado)+0.5, 100);
-plot(n_asignado, q_est/1e-19, 'o', 'MarkerFaceColor', [0.2 0.7 0.4], 'MarkerEdgeColor','none')
+plot(n_asignado, q_est/1e-19, 'o', 'MarkerFaceColor', '#1ebc73', 'MarkerEdgeColor','none')
 hold on
 plot(n_rng, e_sim*n_rng/1e-19, '-k', 'LineWidth', 1.5)
-xlabel('n_i  (electrones asignados)');  ylabel('\hat{q}_i  (\times10^{-19} C)')
+xlabel('n_i  (electrones asignados)');
+ylabel('$\hat{q}_i  (\times10^{-19} C)$', 'Interpreter', 'latex', 'FontSize', 14)
 title(sprintf('Regresión: e = %.4f \\times 10^{-19} C', e_sim/1e-19))
 legend('Datos','Regresión','Location','nw')
 grid on

@@ -1,5 +1,4 @@
 clear; clc; close all;
-rng(67);
 
 %% ── Parámetros físicos ──────────────────────────────────────────────────
 p.rhoOil  = 886;                % densidad del aceite [kg/m³]
@@ -8,10 +7,8 @@ p.d       = 6e-3;               % separación de placas [m]
 p.e_exact = 1.602176634e-19;    % carga elemental exacta [C]
 
 % Rangos de parámetros variables
-p.eta_min = 1.79e-5;
-p.eta_max = 1.83e-5;    % viscosidad [Pa·s]
-p.rho_min = 1.18;
-p.rho_max = 1.23;       % densidad del aire [kg/m³]
+p.eta_min = 1.79e-5;  p.eta_max = 1.83e-5;   % viscosidad [Pa·s]
+p.rho_min = 1.18;     p.rho_max = 1.23;       % densidad del aire [kg/m³]
 
 % Parámetros del integrador
 dt      = 1e-8;     % paso temporal [s]
@@ -23,7 +20,7 @@ usar_cunningham = true;
 
 %% ── Generación de gotas ─────────────────────────────────────────────────
 N       = 30;
-r       = (0.5 + 4.5*rand(1,N)) * 1e-6;     % radio [m]
+r       = (0.5 + 4.5*rand(1,N)) * 1e-6;    % radio [m]
 n_elec  = randi(8, 1, N);                   % número de electrones
 eta     = p.eta_min + (p.eta_max - p.eta_min)*rand(1,N);
 rhoAir  = p.rho_min + (p.rho_max - p.rho_min)*rand(1,N);
@@ -55,10 +52,10 @@ for i = 1:N
 
     % Función de fuerza: ascenso con campo eléctrico
     Fg_i      = (4/3)*pi*r(i)^3 * delta_rho(i) * p.g;
-    f_ascenso = @(v) ( -Fg_i + 6*pi*eta(i)*r(i)*v - q_real(i)*E_i ) / m_i;
+    f_ascenso = @(v) ( q_real(i)*E_i - Fg_i - 6*pi*eta(i)*r(i)*v ) / m_i;
 
     % La gota sube → invertimos signo de velocidad para integrar
-    [~, v_hist] = euler_integrar(@(v) -f_ascenso(v), 0, dt, tol_rel, tol_abs, t_max);
+    [~, v_hist] = euler_integrar(f_ascenso, 0, dt, tol_rel, tol_abs, t_max);
     vs(i)       = abs(v_hist(end));
 
     % Carga estimada
