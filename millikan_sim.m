@@ -1,6 +1,5 @@
 clear; clc; close all;
-
-rng(424)
+rng(424);
 
 %% ── Parámetros físicos ──────────────────────────────────────────────────
 p.rhoOil  = 886;                % densidad del aceite [kg/m³]
@@ -77,4 +76,5 @@ fprintf('  R²     =  %.6f\n', R2)
 fprintf('───────────────────────────────────────────\n')
 
 %% ── Gráficas ────────────────────────────────────────────────────────────
+graficar_transitorio(r, eta, delta_rho, p, dt, tol_rel, tol_abs, t_max);
 graficar_resultados(r, vf, q_est, n_asignado, e_sim, p);
