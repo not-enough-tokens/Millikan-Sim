@@ -1,5 +1,7 @@
 clear; clc; close all;
 
+rng(424)
+
 %% ── Parámetros físicos ──────────────────────────────────────────────────
 p.rhoOil  = 886;                % densidad del aceite [kg/m³]
 p.g       = 9.81;               % aceleración gravitatoria [m/s²]
