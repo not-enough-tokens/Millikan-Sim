@@ -1,0 +1,27 @@
+function [tHist, vHist] = EulerInt(f, v0, dt, tolRel, tolAbs, tMax)
+% EULERINT Resuelve dv/dt = f(v) con el método de Euler explícito.
+%
+% Sintaxis:
+%   [tHist, vHist] = EulerInt(f, v0, dt, tolRel, tolAbs, tMax)
+%
+% Parámetros de entrada:
+%   f      - función @(v) que devuelve dv/dt para una velocidad v dada
+%   v0     - velocidad incial [m/s]
+%   dt     - paso temporal [s]
+%   tolRel - tolerancia relativa para el criterio de paro
+%   tolAbs - tolerancia absoluta
+%   tMax   - tiempo máximo de simulación [s]
+%
+% Parámetros de salida:
+% [tHist]  - Vector de tiempo hasta alcazar el tiempo terminal
+% [vHist]  - Vector de velocidad hasta alcanzar la velocidad terminal
+%
+% Ejemplo:
+%
+% Autor:
+%   Braulio Medina Vázquez - A00844939
+%
+% Fecha: 14/04/2026 
+
+
+end
